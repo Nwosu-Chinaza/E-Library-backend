@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import authRoutes from "./routes/authRoutes.js";
+
 
 const app = express();
 
@@ -28,7 +30,6 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 
-
 app.get("/", (req, res) => {
     res.status(200).json({
         success: true,
@@ -36,10 +37,11 @@ app.get("/", (req, res) => {
         version: "1.0.0",
     });
 });
+app.use("/api/auth", authRoutes);
 
 
 
-app.use((req, res) => {
+app.use((req, res, next) => {
     res.status(404).json({
         success: false,
         message: "Route not found.",
