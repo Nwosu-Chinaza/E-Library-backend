@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+
+# Logs
+*.log
+
+# Uploaded Files
+src/uploads/pdfs/*
+src/uploads/covers/*
+
+# Keep the folders
+!src/uploads/pdfs/.gitkeep
+!src/uploads/covers/.gitkeep
+
+
+# VS Code
+.vscode/
