@@ -119,7 +119,7 @@ CREATE TABLE book_files (
 
    cover_image_url TEXT,
 
-    pdf_file_url TEXT NOT NULL,
+    file_url TEXT NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
