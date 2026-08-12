@@ -8,8 +8,8 @@ node_modules/
 *.log
 
 # Uploaded Files
-src/uploads/pdfs/*
-src/uploads/covers/*
+uploads/documents/*
+uploads/covers/*
 
 # Keep the folders
 !src/uploads/pdfs/.gitkeep

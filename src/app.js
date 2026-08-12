@@ -8,6 +8,13 @@ import bookRoutes from "./routes/bookRoutes.js";
 import bookFileRoutes from "./routes/bookFileRoutes.js";
 import downloadRoutes from "./routes/downloadRoutes.js";
 import readingHistoryRoutes from "./routes/readingHistoryRoute.js";
+import favoriteRoutes from "./routes/favoriteRoutes.js";
+import readingRoutes from "./routes/readingRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import notFound from "./middleware/notFound.js";
+import errorHandler from "./middleware/errorHandler.js";
+import userRoutes from "./routes/userRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 const app = express();
 
 // Security headers
@@ -26,11 +33,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Log every incoming request
 app.use(morgan("dev"));
-
+app.use("/api/books", favoriteRoutes);
 app.use("/api/books", readingHistoryRoutes);
-app.use("/api/books", bookRoutes);
+app.use("/api/books", readingRoutes);
 app.use("/api/books", bookFileRoutes);
 app.use("/api/books", downloadRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+// Handle unknown routes
+app.use(notFound);
+// Handle all errors
+app.use(errorHandler);
+
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {

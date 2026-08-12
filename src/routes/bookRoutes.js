@@ -1,3 +1,4 @@
+import { validateBook } from "../validators/bookValidator.js";
 import { Router } from "express";
 
 import {
@@ -7,7 +8,6 @@ import {
   editBook,
   removeBook,
 } from "../controllers/bookController.js";
-
 import protect from "../middleware/auth.js";
 import upload from "../middleware/upload.js";
 
@@ -39,6 +39,7 @@ router.post(
     { name: "cover", maxCount: 1 },
     { name: "document", maxCount: 1 },
   ]),
+  validateBook,
   addBook,
 );
 

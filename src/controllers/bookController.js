@@ -8,6 +8,7 @@ import {
 } from "../services/bookService.js";
 import { uploadFile } from "../services/uploadService.js";
 import { createBookFiles } from "../services/bookFileService.js";
+import { getPagination } from "../utils/pagination.js";
 
 /**
  * @desc Get all books
@@ -16,13 +17,19 @@ import { createBookFiles } from "../services/bookFileService.js";
  */
 export const getBooks = async (req, res) => {
   try {
-    const { search } = req.query;
+    const { search, page, limit } = req.query;
 
-    const books = search ? await searchBooks(search) : await getAllBooks();
+    const pagination = getPagination(page, limit);
+
+    const books = search
+      ? await searchBooks(search)
+      : await getAllBooks(pagination);
 
     return res.status(200).json({
       success: true,
       count: books.length,
+      page: pagination.page,
+      limit: pagination.limit,
       books,
     });
   } catch (error) {

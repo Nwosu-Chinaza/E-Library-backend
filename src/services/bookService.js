@@ -6,7 +6,7 @@ import pool from "../config/db.js";
  * Returns book information together with
  * the category name and creator's name.
  */
-export const getAllBooks = async () => {
+export const getAllBooks = async ({ limit, offset }) => {
   const query = `
     SELECT
       books.id,
@@ -43,10 +43,13 @@ export const getAllBooks = async () => {
 
     WHERE books.is_deleted = FALSE
 
-    ORDER BY books.created_at DESC;
+    ORDER BY books.created_at DESC
+
+    LIMIT $1
+    OFFSET $2;
   `;
 
-  const { rows } = await pool.query(query);
+  const { rows } = await pool.query(query, [limit, offset]);
 
   return rows;
 };
