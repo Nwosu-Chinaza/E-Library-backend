@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 
-  dotenv.config();
+dotenv.config();
 
 const env = {
   PORT: process.env.PORT || 5000,
@@ -18,6 +18,10 @@ const env = {
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  FROM_EMAIL: process.env.FROM_EMAIL,
+  APP_URL: process.env.APP_URL || "http://localhost:5000",
 };
 
 export default env;

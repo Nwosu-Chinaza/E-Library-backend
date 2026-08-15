@@ -15,6 +15,13 @@ import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
 import userRoutes from "./routes/userRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import { testEmail } from "./services/emailService.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 // Security headers
@@ -43,6 +50,33 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use(express.static(path.join(__dirname, "public")));
+
+
+
+
+
+app.get("/test-email", async (req, res) => {
+  try {
+    const result = await testEmail();
+
+    return res.status(200).json({
+      success: true,
+      message: "Test email sent successfully.",
+      result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to send test email.",
+    });
+  }
+});
+
+
+
+
+
 // Handle unknown routes
 app.use(notFound);
 // Handle all errors

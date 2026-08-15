@@ -30,6 +30,12 @@ CREATE TABLE users (
 
     password TEXT NOT NULL,
 
+reset_token TEXT,
+
+reset_token_expires TIMESTAMP,
+
+profile_image_url TEXT,
+
     profile_image_url TEXT,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
