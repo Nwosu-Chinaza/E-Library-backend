@@ -1,25 +1,38 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import env from "../config/env.js";
 
-const resend = new Resend(env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // Use STARTTLS
+  auth: {
+    user: env.EMAIL_USER,
+    pass: env.EMAIL_PASSWORD,
+  },
+});
+
+// Verify connection configuration
+transporter.verify((error, success) => {
+  if (error) {
+    console.warn("Nodemailer configuration error:", error.message);
+  } else {
+    console.log("Nodemailer is ready to send emails.");
+  }
+});
 
 /**
  * Send an email
  */
 export const sendEmail = async ({ to, subject, html }) => {
   try {
-    const { data, error } = await resend.emails.send({
-      from: env.FROM_EMAIL,
+    const info = await transporter.sendMail({
+      from: `"E-Library" <${env.EMAIL_USER}>`,
       to,
       subject,
       html,
     });
 
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    return data;
+    return info;
   } catch (error) {
     console.error("Email Service Error:", error);
     throw error;
@@ -28,11 +41,11 @@ export const sendEmail = async ({ to, subject, html }) => {
 
 export const testEmail = async () => {
   return sendEmail({
-    to: "nwosuchinazaubadimma@gmail.com",
+    to: env.EMAIL_USER, // Send to self for testing
     subject: "E-Library Email Test",
     html: `
       <h2>E-Library Email Test</h2>
-      <p>If you received this email, Resend is working correctly.</p>
+      <p>If you received this email, Nodemailer is working correctly.</p>
     `,
   });
 };

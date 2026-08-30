@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import env from "./config/env.js";
 import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -29,7 +30,7 @@ app.use(helmet());
 
 app.use(
   cors({
-    // origin: "http://localhost:5173",
+    origin: env.FRONTEND_URL,
     credentials: true,
   }),
 );
@@ -77,12 +78,7 @@ app.get("/test-email", async (req, res) => {
 
 
 
-// Handle unknown routes
-app.use(notFound);
-// Handle all errors
-app.use(errorHandler);
-
-app.use("/api/auth", authRoutes);
+app.get("/favicon.ico", (req, res) => res.status(204).end());
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -92,11 +88,9 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use((req, res, next) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found.",
-  });
-});
+// Handle unknown routes
+app.use(notFound);
+// Handle all errors
+app.use(errorHandler);
 
 export default app;

@@ -6,6 +6,7 @@ const env = {
   PORT: process.env.PORT || 5000,
   NODE_ENV: process.env.NODE_ENV || "development",
 
+  DATABASE_URL: process.env.DATABASE_URL,
   DB_HOST: process.env.DB_HOST,
   DB_PORT: Number(process.env.DB_PORT) || 5432,
   DB_NAME: process.env.DB_NAME,
@@ -19,8 +20,9 @@ const env = {
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 
-  RESEND_API_KEY: process.env.RESEND_API_KEY,
-  FROM_EMAIL: process.env.FROM_EMAIL,
+  EMAIL_USER: process.env.EMAIL_USER,
+  EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+  FRONTEND_URL: process.env.FRONTEND_URL || "http://localhost:3000",
   APP_URL: process.env.APP_URL || "http://localhost:5000",
 };
 
