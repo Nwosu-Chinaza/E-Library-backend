@@ -36,11 +36,9 @@ reset_token_expires TIMESTAMP,
 
 profile_image_url TEXT,
 
-    profile_image_url TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_user_role
         FOREIGN KEY (role_id)
